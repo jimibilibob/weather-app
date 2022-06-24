@@ -171,6 +171,7 @@
                     <tabBarItem key="tabBarItem" title="History" id="uVT-Eq-OzE"/>
                     <connections>
                         <outlet property="tableView" destination="C86-hL-Ibw" id="cuN-Kl-NYh"/>
+                        <segue destination="ehi-y2-J17" kind="show" identifier="goToDetailViewController" id="unj-dS-kwu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E1I-wk-gta" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -213,6 +214,9 @@
             <point key="canvasLocation" x="-845" y="46"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="unj-dS-kwu"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

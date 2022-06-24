@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class DetailViewController: UIViewController {
     
@@ -25,6 +26,7 @@ class DetailViewController: UIViewController {
     }
     
     func setUptViews() {
+        SVProgressHUD.show()
         guard let listItem = listItem else { return }
         
         if let url = URL(string: "https://openweathermap.org/img/wn/\(listItem.weather[0].icon)@2x.png") {
@@ -40,6 +42,6 @@ class DetailViewController: UIViewController {
         temperatureLabel.text = "\(listItem.main.temp) F"
         weatherDescriptionLabel.text = listItem.weather[0].weatherDescription
         windLabel.text = "Speed: \(listItem.wind.speed), Degree: \(listItem.wind.deg)"
-
+        SVProgressHUD.dismiss()
     }
 }

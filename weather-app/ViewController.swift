@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import CoreData
+import SVProgressHUD
 
 class ViewController: UIViewController {
 
@@ -14,6 +16,7 @@ class ViewController: UIViewController {
     
     var list: [List] = []
     var currentListItem: List?
+    var placeQuery: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +63,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentListItem = list[indexPath.row]
 
+        if let place = placeQuery {
+            saveHistoryInCoreData(place: place, position: Int16(indexPath.row))
+        }
+        
         performSegue(withIdentifier: "goToDetailViewController", sender: nil)
     }
 
@@ -81,7 +88,9 @@ extension ViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        SVProgressHUD.show()
         guard let query = searchBar.text else { return }
+        placeQuery = query
         
         FindNetworkManager.shared.getFind(query: query) { result in
             switch result {
@@ -91,16 +100,34 @@ extension ViewController: UISearchBarDelegate {
             case.failure(let error):
                 print("Error", error)
             }
+            SVProgressHUD.dismiss()
         }
         
         tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            /*filteredPhotos = photos
-            collectionView.reloadData()
-            return*/
-        }
+        if searchText.isEmpty { }
+    }
+    
+    func saveHistoryInCoreData(place: String, position: Int16) {
+        let context = CoreDataManager.shared.getContext()
+        
+        guard let entity = NSEntityDescription.entity(forEntityName: "History", in: context) else { return }
+        
+        guard let history = NSManagedObject(entity: entity, insertInto: context) as? History else { return }
+        
+        history.id = Int16.random(in: 1...1000)
+        history.place = place
+        history.position = position
+        
+        let formater = DateFormatter()
+        formater.dateFormat = "MMM d yyy - HH:mm:ss"
+        formater.locale = Locale(identifier: Locale.current.identifier)
+        let dateStr = formater.string(from: Date())
+        
+        history.createdAt = dateStr
+        
+        CoreDataManager.shared.saveContext()
     }
 }
