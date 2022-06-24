@@ -39,6 +39,7 @@
                     <tabBarItem key="tabBarItem" title="Search" id="QCm-Va-MPW"/>
                     <navigationItem key="navigationItem" title="Weather App" id="dgc-ll-m4n"/>
                     <connections>
+                        <outlet property="searchBar" destination="mlC-6o-x0L" id="bLs-DH-wDj"/>
                         <outlet property="tableView" destination="VAv-QN-CJA" id="vmY-hX-Hdx"/>
                         <segue destination="ehi-y2-J17" kind="show" identifier="goToDetailViewController" id="4Cr-ce-jiZ"/>
                     </connections>
@@ -84,19 +85,30 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="eKe-1l-9L5">
                                 <rect key="frame" x="8" y="388" width="398" height="111.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Departamento de Cochabamba 13 C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u69-J5-cAE">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="kJ8-aF-Egx">
                                         <rect key="frame" x="0.0" y="0.0" width="398" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear Sky" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3c4-6F-W6M">
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Departamento de Cochabamba" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u69-J5-cAE">
+                                                <rect key="frame" x="0.0" y="0.0" width="239" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13 C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnH-Vx-fxD">
+                                                <rect key="frame" x="364" y="0.0" width="34" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear Sky" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3c4-6F-W6M">
                                         <rect key="frame" x="0.0" y="45.5" width="398" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wind" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i1M-9T-88I">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wind" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i1M-9T-88I">
                                         <rect key="frame" x="0.0" y="91" width="398" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -120,6 +132,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="3gN-fN-EIN"/>
+                    <connections>
+                        <outlet property="countryFlagImageView" destination="sex-oP-lq8" id="rYT-5f-KMK"/>
+                        <outlet property="countryLabel" destination="Q1C-Od-3y7" id="jq4-tq-OhI"/>
+                        <outlet property="placeLabel" destination="u69-J5-cAE" id="4je-MZ-vyX"/>
+                        <outlet property="temperatureLabel" destination="jnH-Vx-fxD" id="zPy-HZ-ABS"/>
+                        <outlet property="weatherDescriptionLabel" destination="3c4-6F-W6M" id="y1r-fk-lP2"/>
+                        <outlet property="weatherImageView" destination="18L-DL-9L3" id="JGw-gY-fy4"/>
+                        <outlet property="windLabel" destination="i1M-9T-88I" id="1Aa-So-hjI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SdY-pp-iNe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

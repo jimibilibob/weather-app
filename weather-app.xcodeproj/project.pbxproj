@@ -20,6 +20,10 @@
 		CE7127722860C216003FA2AB /* HistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE7127702860C216003FA2AB /* HistoryTableViewCell.xib */; };
 		CE7127742860E751003FA2AB /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7127732860E751003FA2AB /* HistoryViewController.swift */; };
 		CE7127762860E765003FA2AB /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7127752860E765003FA2AB /* DetailViewController.swift */; };
+		CEBCCFAB286561C5009E4B59 /* Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCCFAA286561C5009E4B59 /* Find.swift */; };
+		CEBCCFAE28656286009E4B59 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCCFAD28656286009E4B59 /* NetworkManager.swift */; };
+		CEBCCFB028656346009E4B59 /* FindNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCCFAF28656346009E4B59 /* FindNetworkManager.swift */; };
+		CEBCCFB228656A0F009E4B59 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBCCFB128656A0F009E4B59 /* ImageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +42,10 @@
 		CE7127702860C216003FA2AB /* HistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTableViewCell.xib; sourceTree = "<group>"; };
 		CE7127732860E751003FA2AB /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		CE7127752860E765003FA2AB /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		CEBCCFAA286561C5009E4B59 /* Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Find.swift; sourceTree = "<group>"; };
+		CEBCCFAD28656286009E4B59 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		CEBCCFAF28656346009E4B59 /* FindNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindNetworkManager.swift; sourceTree = "<group>"; };
+		CEBCCFB128656A0F009E4B59 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +78,8 @@
 		CE7127522860B6CA003FA2AB /* weather-app */ = {
 			isa = PBXGroup;
 			children = (
+				CEBCCFAC28656259009E4B59 /* managers */,
+				CEBCCFA9286561B9009E4B59 /* models */,
 				CE71276A2860BB09003FA2AB /* cells */,
 				CE7127532860B6CA003FA2AB /* AppDelegate.swift */,
 				CE7127552860B6CA003FA2AB /* SceneDelegate.swift */,
@@ -94,6 +104,24 @@
 				CE7127702860C216003FA2AB /* HistoryTableViewCell.xib */,
 			);
 			path = cells;
+			sourceTree = "<group>";
+		};
+		CEBCCFA9286561B9009E4B59 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				CEBCCFAA286561C5009E4B59 /* Find.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		CEBCCFAC28656259009E4B59 /* managers */ = {
+			isa = PBXGroup;
+			children = (
+				CEBCCFAD28656286009E4B59 /* NetworkManager.swift */,
+				CEBCCFAF28656346009E4B59 /* FindNetworkManager.swift */,
+				CEBCCFB128656A0F009E4B59 /* ImageManager.swift */,
+			);
+			path = managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,11 +199,15 @@
 			files = (
 				CE7127712860C216003FA2AB /* HistoryTableViewCell.swift in Sources */,
 				CE71276D2860BB80003FA2AB /* WeatherTableViewCell.swift in Sources */,
+				CEBCCFAE28656286009E4B59 /* NetworkManager.swift in Sources */,
+				CEBCCFB228656A0F009E4B59 /* ImageManager.swift in Sources */,
+				CEBCCFB028656346009E4B59 /* FindNetworkManager.swift in Sources */,
 				CE71275E2860B6CA003FA2AB /* weather_app.xcdatamodeld in Sources */,
 				CE7127582860B6CA003FA2AB /* ViewController.swift in Sources */,
 				CE7127542860B6CA003FA2AB /* AppDelegate.swift in Sources */,
 				CE7127742860E751003FA2AB /* HistoryViewController.swift in Sources */,
 				CE7127562860B6CA003FA2AB /* SceneDelegate.swift in Sources */,
+				CEBCCFAB286561C5009E4B59 /* Find.swift in Sources */,
 				CE7127762860E765003FA2AB /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
