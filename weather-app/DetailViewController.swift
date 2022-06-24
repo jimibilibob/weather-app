@@ -29,6 +29,8 @@ class DetailViewController: UIViewController {
         SVProgressHUD.show()
         guard let listItem = listItem else { return }
         
+        title = listItem.name
+        
         if let url = URL(string: "https://openweathermap.org/img/wn/\(listItem.weather[0].icon)@2x.png") {
             weatherImageView.image = ImageManager.shared.loadFromUrl(url: url)
         }

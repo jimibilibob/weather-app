@@ -88,6 +88,7 @@ extension ViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
         SVProgressHUD.show()
         guard let query = searchBar.text else { return }
         placeQuery = query

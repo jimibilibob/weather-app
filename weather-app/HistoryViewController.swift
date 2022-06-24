@@ -97,4 +97,13 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         destination.listItem = currentListItem
     }
 
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let actions = [
+            UIContextualAction(style: .destructive, title: "Remove") { _,_,_ in
+            
+            }
+        ]
+        
+        return UISwipeActionsConfiguration(actions: actions)
+    }
 }
