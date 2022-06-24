@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     var currentListItem: List?
     var placeQuery: String?
     
+    var emptyLabel = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -97,6 +99,7 @@ extension ViewController: UISearchBarDelegate {
             switch result {
             case.success(let find):
                 self.list = find.list
+                self.emptyLabel.removeFromSuperview()
                 self.tableView.reloadData()
             case.failure(let error):
                 print("Error", error)
@@ -105,6 +108,22 @@ extension ViewController: UISearchBarDelegate {
         }
         
         tableView.reloadData()
+        
+        if list.isEmpty {
+            addEmptyLabel()
+        }
+    }
+    
+    private func addEmptyLabel() {
+        emptyLabel.text = "No results found!"
+        view.addSubview(emptyLabel)
+        
+        emptyLabel.topAnchor.constraint(equalTo: searchBar.topAnchor, constant: searchBar.frame.height + 10).isActive = true
+        emptyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        
+        emptyLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        
+        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
