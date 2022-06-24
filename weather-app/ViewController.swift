@@ -107,7 +107,10 @@ extension ViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty { }
+        if searchText.isEmpty {
+            list.removeAll()
+            tableView.reloadData()
+        }
     }
     
     func saveHistoryInCoreData(place: String, position: Int16) {
