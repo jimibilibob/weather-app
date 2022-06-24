@@ -65,7 +65,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentListItem = list[indexPath.row]
 
-        if let place = placeQuery {
+        if let place = placeQuery,
+           !checkHistoryItemInCoreData(place: place, position: Int16(indexPath.row)) {
             saveHistoryInCoreData(place: place, position: Int16(indexPath.row))
         }
         
@@ -151,5 +152,21 @@ extension ViewController: UISearchBarDelegate {
         history.createdAt = dateStr
         
         CoreDataManager.shared.saveContext()
+    }
+    
+    func checkHistoryItemInCoreData(place: String, position: Int16) -> Bool {
+        let context = CoreDataManager.shared.getContext()
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "History")
+            fetchRequest.fetchLimit =  1
+            fetchRequest.predicate = NSPredicate(format: "position == %d AND place == %@", position, place)
+
+            do {
+                let count = try context.count(for: fetchRequest)
+                return (count > 0)
+            } catch let error as NSError {
+                print("Could not fetch. \(error), \(error.userInfo)")
+                return false
+            }
     }
 }
