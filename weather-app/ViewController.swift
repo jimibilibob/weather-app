@@ -105,13 +105,12 @@ extension ViewController: UISearchBarDelegate {
                 print("Error", error)
             }
             SVProgressHUD.dismiss()
+            if self.list.isEmpty {
+                self.addEmptyLabel()
+            }
         }
         
         tableView.reloadData()
-        
-        if list.isEmpty {
-            addEmptyLabel()
-        }
     }
     
     private func addEmptyLabel() {
