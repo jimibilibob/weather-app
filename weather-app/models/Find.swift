@@ -23,7 +23,8 @@ struct List: Codable {
     let dt: Int
     let wind: Wind
     let sys: Sys
-    let rain, snow: JSONNull?
+    let rain: Rain?
+    let snow: JSONNull?
     let clouds: Clouds
     let weather: [Weather]
 }
@@ -52,6 +53,15 @@ struct Main: Codable {
         case pressure, humidity
         case seaLevel = "sea_level"
         case grndLevel = "grnd_level"
+    }
+}
+
+// MARK: - Rain
+struct Rain: Codable {
+    let the1H: Double
+
+    enum CodingKeys: String, CodingKey {
+        case the1H = "1h"
     }
 }
 
