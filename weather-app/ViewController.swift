@@ -101,7 +101,6 @@ extension ViewController: UISearchBarDelegate {
             case.success(let find):
                 self.list = find.list
                 self.emptyLabel.removeFromSuperview()
-                self.tableView.reloadData()
             case.failure(let error):
                 print("Error", error)
             }
@@ -158,15 +157,15 @@ extension ViewController: UISearchBarDelegate {
         let context = CoreDataManager.shared.getContext()
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "History")
-            fetchRequest.fetchLimit =  1
-            fetchRequest.predicate = NSPredicate(format: "position == %d AND place == %@", position, place)
+        fetchRequest.fetchLimit =  1
+        fetchRequest.predicate = NSPredicate(format: "position == %d AND place == %@", position, place)
 
-            do {
-                let count = try context.count(for: fetchRequest)
-                return (count > 0)
-            } catch let error as NSError {
-                print("Could not fetch. \(error), \(error.userInfo)")
-                return false
-            }
+        do {
+            let count = try context.count(for: fetchRequest)
+            return (count > 0)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+            return false
+        }
     }
 }
