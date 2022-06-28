@@ -18,13 +18,20 @@ class SearchViewController: UIViewController {
     var currentListItem: List?
     var placeQuery: String?
     
-    var emptyLabel = UILabel()
+    var emptyLabel: UILabel = {
+        let el = UILabel()
+        el.text = "No results found!"
+        el.translatesAutoresizingMaskIntoConstraints = false
+
+        return el
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpTableView()
         setUpSearchBar()
+        setUpEmptyLabel()
     }
     
     func setUpSearchBar() {
@@ -37,6 +44,16 @@ class SearchViewController: UIViewController {
         
         let uiNib = UINib(nibName: WeatherTableViewCell.identifier, bundle: nil)
         tableView.register(uiNib, forCellReuseIdentifier: WeatherTableViewCell.identifier)
+    }
+    
+    func setUpEmptyLabel() {
+        view.addSubview(emptyLabel)
+        
+        emptyLabel.topAnchor.constraint(equalTo: searchBar.topAnchor, constant: searchBar.frame.height + 10).isActive = true
+        emptyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        
+        emptyLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        emptyLabel.isHidden = true
     }
 }
 
@@ -106,24 +123,12 @@ extension SearchViewController: UISearchBarDelegate {
             }
             self.tableView.reloadData()
             SVProgressHUD.dismiss()
-            if self.list.isEmpty {
-                self.addEmptyLabel()
-            }
+            
+            self.emptyLabel.isHidden = false
+            
         }
         
         tableView.reloadData()
-    }
-    
-    private func addEmptyLabel() {
-        emptyLabel.text = "No results found!"
-        view.addSubview(emptyLabel)
-        
-        emptyLabel.topAnchor.constraint(equalTo: searchBar.topAnchor, constant: searchBar.frame.height + 10).isActive = true
-        emptyLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        
-        emptyLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        
-        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
