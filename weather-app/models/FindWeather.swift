@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Find
-struct Find: Codable {
+struct FindWeather: Codable {
     let message, cod: String
     let count: Int
     let list: [List]

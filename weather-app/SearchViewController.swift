@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 import SVProgressHUD
 
-class ViewController: UIViewController {
+class SearchViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         list.count
     }
@@ -85,7 +85,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension ViewController: UISearchBarDelegate {
+extension SearchViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
     }
@@ -96,7 +96,7 @@ extension ViewController: UISearchBarDelegate {
         guard let query = searchBar.text else { return }
         placeQuery = query
         
-        FindNetworkManager.shared.getFind(query: query) { result in
+        FindWeatherNetworkManager.shared.getFind(query: query) { result in
             switch result {
             case.success(let find):
                 self.list = find.list

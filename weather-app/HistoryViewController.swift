@@ -73,7 +73,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         SVProgressHUD.show()
         let currentHistory = historyList[indexPath.row]
         
-        FindNetworkManager.shared.getFind(query: currentHistory.place) { result in
+        FindWeatherNetworkManager.shared.getFind(query: currentHistory.place) { result in
             switch result {
             case.success(let find):
                 self.currentListItem = find.list[Int(currentHistory.position)]
