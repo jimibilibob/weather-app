@@ -104,6 +104,7 @@ extension ViewController: UISearchBarDelegate {
             case.failure(let error):
                 print("Error", error)
             }
+            self.tableView.reloadData()
             SVProgressHUD.dismiss()
             if self.list.isEmpty {
                 self.addEmptyLabel()
