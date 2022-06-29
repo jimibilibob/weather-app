@@ -18,7 +18,6 @@ class HistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setUpTableView()
     }
     
@@ -36,17 +35,10 @@ class HistoryViewController: UIViewController {
     
     func loadHistory() {
         SVProgressHUD.show()
-        let context = CoreDataManager.shared.getContext()
-        
-        let fetchRequest = NSFetchRequest<History>(entityName: "History")
-        
-        do {
-            let dbHistory = try context.fetch(fetchRequest)
-            historyList = dbHistory
-            tableView.reloadData()
-        } catch(let error) {
-            print(error)
-        }
+
+        historyList = HistoryCoreDataManager.shared.getAllHistory()
+        tableView.reloadData()
+
         SVProgressHUD.dismiss()
     }
 }
@@ -100,7 +92,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let item = historyList[indexPath.row]
         let removeAction = UIContextualAction(style: .destructive, title: "Remove") { _,_,_ in
-            self.removePhoto(item: item)
+            self.removeHistoryItem(item: item)
         }
         
         removeAction.image = UIImage(systemName: "trash")
@@ -112,19 +104,15 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         return UISwipeActionsConfiguration(actions: actions)
     }
     
-    func removePhoto(item: History) {
-        let context = CoreDataManager.shared.getContext()
-        
+    func removeHistoryItem(item: History) {
         let alert = UIAlertController(title: "Remove Element", message: "¿Do you want to remove this element?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Remove", style: .default) { _ in
             guard let index = self.historyList.firstIndex(of: item) else { return }
             self.historyList.remove(at: index)
-            context.delete(item)
-            CoreDataManager.shared.saveContext()
+            HistoryCoreDataManager.shared.removeHistoryItemFromCoreData(item: item)
             
             self.tableView.reloadData()
-
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))

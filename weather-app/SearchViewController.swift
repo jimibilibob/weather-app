@@ -82,9 +82,11 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentListItem = list[indexPath.row]
 
-        if let place = placeQuery,
-           !checkHistoryItemInCoreData(place: place, position: Int16(indexPath.row)) {
-            saveHistoryInCoreData(place: place, position: Int16(indexPath.row))
+        let position = Int16(indexPath.row)
+        
+        if let place = placeQuery, !HistoryCoreDataManager.shared.checkHistoryItemInCoreData(place: place, position: position),
+           let history = HistoryCoreDataManager.shared.createHistoryNSManagedObject(place: place, position: position) {
+            CoreDataManager.shared.saveItemInCoreData(item: history)
         }
         
         performSegue(withIdentifier: "goToDetailViewController", sender: nil)
@@ -123,11 +125,8 @@ extension SearchViewController: UISearchBarDelegate {
             }
             self.tableView.reloadData()
             SVProgressHUD.dismiss()
-            
             self.emptyLabel.isHidden = false
-            
         }
-        
         tableView.reloadData()
     }
     
@@ -135,43 +134,6 @@ extension SearchViewController: UISearchBarDelegate {
         if searchText.isEmpty {
             list.removeAll()
             tableView.reloadData()
-        }
-    }
-    
-    func saveHistoryInCoreData(place: String, position: Int16) {
-        let context = CoreDataManager.shared.getContext()
-        
-        guard let entity = NSEntityDescription.entity(forEntityName: "History", in: context) else { return }
-        
-        guard let history = NSManagedObject(entity: entity, insertInto: context) as? History else { return }
-        
-        history.id = Int16.random(in: 1...1000)
-        history.place = place
-        history.position = position
-        
-        let formater = DateFormatter()
-        formater.dateFormat = "MMM d yyy - HH:mm:ss"
-        formater.locale = Locale(identifier: Locale.current.identifier)
-        let dateStr = formater.string(from: Date())
-        
-        history.createdAt = dateStr
-        
-        CoreDataManager.shared.saveContext()
-    }
-    
-    func checkHistoryItemInCoreData(place: String, position: Int16) -> Bool {
-        let context = CoreDataManager.shared.getContext()
-        
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "History")
-        fetchRequest.fetchLimit =  1
-        fetchRequest.predicate = NSPredicate(format: "position == %d AND place == %@", position, place)
-
-        do {
-            let count = try context.count(for: fetchRequest)
-            return (count > 0)
-        } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
-            return false
         }
     }
 }

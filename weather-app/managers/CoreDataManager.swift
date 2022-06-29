@@ -38,4 +38,45 @@ class CoreDataManager {
             }
         }
     }
+    
+    func saveItemInCoreData<T: NSManagedObject>(item: T) {
+        let context = getContext()
+        context.insert(item)
+        
+        CoreDataManager.shared.saveContext()
+    }
+    
+    func getItemsInCoreData<T: NSManagedObject>(predicate: NSPredicate, entityName: String) -> [T] {
+        let context = getContext()
+        
+        let fetchRequest = NSFetchRequest<T>(entityName: entityName)
+
+        fetchRequest.predicate = predicate
+
+        do {
+            return try context.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+            return []
+        }
+    }
+    
+    func getItemsInCoreData<T: NSManagedObject>(entityName: String) -> [T] {
+        let context = getContext()
+        
+        let fetchRequest = NSFetchRequest<T>(entityName: entityName)
+        
+        do {
+            return try context.fetch(fetchRequest)
+        } catch(let error) {
+            print(error)
+            return []
+        }
+    }
+    
+    func removeItemFromCoreData<T: NSManagedObject>(item: T) {
+        let context = getContext()
+        context.delete(item)
+        CoreDataManager.shared.saveContext()
+    }
 }
